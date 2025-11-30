@@ -17,7 +17,7 @@ public class Order {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Order: ");
+        StringBuilder sb = new StringBuilder("Previous Order:\n: ");
         for (MenuItem item : items) {
             sb.append(item.getName()).append(", ");
         }
@@ -30,4 +30,9 @@ public class Order {
         }
         return false;
     }
+
+    public void removeItem(MenuItem item) {
+        items.remove(item);
+    }
+
 }
