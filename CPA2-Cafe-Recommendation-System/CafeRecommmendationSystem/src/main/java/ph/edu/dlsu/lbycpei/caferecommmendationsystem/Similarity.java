@@ -37,8 +37,6 @@ public class Similarity {
 
         String key = normalize(item);
         ArrayList<String> list = similarityMap.getOrDefault(key, new ArrayList<>());
-
-        // Remove duplicates while preserving order (just in case)
         LinkedHashSet<String> set = new LinkedHashSet<>(list);
         return new ArrayList<>(set);
     }
