@@ -28,19 +28,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (cafeSystem.loginUser(username, password)) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/cafe-view.fxml"));
-                Parent root = loader.load();
-
-                MainController controller = loader.getController();
-                controller.setCafeSystem(cafeSystem);
-
-                Stage stage = (Stage) usernameField.getScene().getWindow();
-                stage.setScene(new Scene(root, 1000, 600));
-                stage.setTitle("Cafe Ordering - Logged in as " + username);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            goToMainScreen(username);
         } else {
             showAlert("Login Failed", "Invalid username or password.");
         }
@@ -69,4 +57,25 @@ public class LoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public void initialize() {
+    }
+
+    private void goToMainScreen(String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/cafe-view.fxml"));
+            Parent root = loader.load();
+
+            MainController controller = loader.getController();
+            controller.setCafeSystem(cafeSystem);
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 600));
+            stage.setTitle("Cafe Ordering - Logged in as " + username);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error loading the main screen.");
+        }
+    }
+
 }
