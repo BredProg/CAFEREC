@@ -1,0 +1,13 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package ph.edu.dlsu.lbycpei.caferecommmendationsystem;
+
+public class Main {
+    public static void main(String[] args) {
+        CafeSystem cafe = new CafeSystem();
+        cafe.run();
+    }
+}
