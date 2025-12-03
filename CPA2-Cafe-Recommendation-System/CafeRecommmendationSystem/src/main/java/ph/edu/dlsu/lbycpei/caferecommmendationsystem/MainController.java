@@ -12,7 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainController {
 
@@ -35,7 +38,6 @@ public class MainController {
     @FXML private VBox receiptContainer;
     @FXML private TextArea receiptArea;
     @FXML private VBox orderVBox;
-    @FXML private Button inventoryButton;
 
     public void setCafeSystem(CafeSystem cafeSystem) {
         this.cafeSystem = cafeSystem;
@@ -47,6 +49,24 @@ public class MainController {
             userLabel.setText("Welcome, Guest");
         }
     }
+
+    @FXML private ListView<MenuItem> categorizedMenuList;
+    private Map<String, List<MenuItem>> categorizedItems = new HashMap<>();
+
+    public void Categorize() {
+        for (MenuItem item : cafeSystem.getMenuItems()) {
+            categorizedItems.computeIfAbsent(item.getCategory(), k -> new ArrayList<>()).add(item);
+        }
+
+
+        categorizedMenuList.getItems().clear();
+        categorizedItems.forEach((category, items) -> {
+            categorizedMenuList.getItems().add(new MenuItem(category, 0, "Category"));
+            categorizedMenuList.getItems().addAll(items);
+        });
+    }
+
+
 
     @FXML
     public void initialize() {
@@ -103,24 +123,15 @@ public class MainController {
 
         totalLabel.setText(String.format("₱%.2f", total));
     }
-
     @FXML
     private void handleAddItemToOrder() {
-        MenuItem item = menuTable.getSelectionModel().getSelectedItem();
-        if (item == null) return;
-
-        boolean success = cafeSystem.addItemToOrder(item.getName());
-
-        if (!success) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Out of Stock");
-            alert.setContentText(item.getName() + " is no longer available.");
-            alert.showAndWait();
-            return;
+        MenuItem selectedItem = menuTable.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            cafeSystem.addItemToOrder(selectedItem.getName());
+            updateOrderUI();
+        } else {
+            showAlert("Error", "Please select an item from the menu to add.");
         }
-
-        refreshOrderTable();
-        refreshTotal();
     }
 
     @FXML
@@ -164,26 +175,24 @@ public class MainController {
     private void handleLogout() {
         cafeSystem.logoutUser();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ph/edu/dlsu/lbycpei/caferecommmendationsystem/login-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
             Parent root = loader.load();
-
             LoginController controller = loader.getController();
             controller.setCafeSystem(cafeSystem);
-
             Stage stage = (Stage) userLabel.getScene().getWindow();
             stage.setScene(new Scene(root, 400, 300));
             stage.setTitle("Login");
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Error", "Error loading the login screen.");
         }
     }
-
     @FXML
     private void handleInventory() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/inventory-view.fxml"));
             Parent root = loader.load();
-            
+
             InventoryController controller = loader.getController();
             controller.setCafeSystem(cafeSystem);
 
@@ -194,6 +203,19 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private Button inventoryButton;
+
+    @FXML private void handleRemoveItemFromOrder() {
+        MenuItem selectedItem = orderTable.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            cafeSystem.getCurrentOrder().removeItem(selectedItem);
+            updateOrderUI();
+        } else {
+            showAlert("Error", "Please select an item from the order to remove.");
+        }
+    }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -202,6 +224,21 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+    private TextArea orderHistoryTextArea;
+
+    @FXML
+    private void handleViewOrderHistory() {
+        if (cafeSystem.getCurrentUser() != null) {
+            List<Order> orderHistory = cafeSystem.getCurrentUser().getOrderHistory();
+            StringBuilder sb = new StringBuilder();
+            for (Order order : orderHistory) {
+                sb.append(order).append("\n");
+            }
+            orderHistoryTextArea.setText(sb.toString());
+        } else {
+            showAlert("Error", "No user logged in.");
+        }
+    }
 
 }
-
