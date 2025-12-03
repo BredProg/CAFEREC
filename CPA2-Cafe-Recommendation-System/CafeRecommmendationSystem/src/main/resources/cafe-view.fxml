@@ -13,36 +13,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ph.edu.dlsu.lbycpei.caferecommmendationsystem.MainController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ph.edu.dlsu.lbycpei.caferecommmendationsystem.MainController" style="-fx-background-color: #F9E0D1;">
     <children>
         <VBox fx:id="orderVBox" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1000.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #F5B7B1;">
                     <children>
-                        <Label text="Cafe Ordering System">
-                            <font>
-                                <Font name="System Bold" size="24.0" />
-                            </font>
+                        <Label text="Cafe Ordering System" style="-fx-font-family: 'Georgia'; -fx-font-size: 24px; -fx-text-fill: #5C4B51;">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Label>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label fx:id="userLabel" text="Welcome, Guest">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
+                                <Label fx:id="userLabel" text="Welcome, Guest" style="-fx-font-size: 14px; -fx-text-fill: #5C4B51;">
                                     <HBox.margin>
                                         <Insets right="15.0" />
                                     </HBox.margin>
                                 </Label>
-                                <Button mnemonicParsing="false" fx:id="inventoryButton" onAction="#handleInventory" text="Inventory">
+                                <!-- New Inventory Button Added by Groupmates -->
+                                <Button mnemonicParsing="false" fx:id="inventoryButton" onAction="#handleInventory" text="Inventory" style="-fx-background-color: #F8C8DC; -fx-text-fill: #5C4B51; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
                                     <HBox.margin>
                                         <Insets right="10.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#handleLogout" text="Logout">
+                                <Button mnemonicParsing="false" onAction="#handleLogout" text="Logout" style="-fx-background-color: #F8C8DC; -fx-text-fill: #5C4B51; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
                                     <HBox.margin>
                                         <Insets right="20.0" />
                                     </HBox.margin>
@@ -54,130 +49,125 @@
                 <Separator prefWidth="200.0" />
                 <HBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="350.0">
+                        <!-- Menu Section -->
+                        <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="350.0" style="-fx-background-color: #F8E2D7; -fx-padding: 10;">
                             <children>
-                                <Label text="Menu">
-                                    <font>
-                                        <Font name="System Bold" size="18.0" />
-                                    </font>
+                                <Label text="Menu" style="-fx-font-family: 'Georgia'; -fx-font-size: 18px; -fx-text-fill: #5C4B51;">
                                     <VBox.margin>
                                         <Insets bottom="5.0" top="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <TableView fx:id="menuTable" prefHeight="400.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+                                <TableView fx:id="menuTable" prefHeight="400.0" prefWidth="300.0" VBox.vgrow="ALWAYS" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10px;">
                                     <columns>
-                                        <TableColumn fx:id="menuNameColumn" prefWidth="200.0" text="Item" />
-                                        <TableColumn fx:id="menuPriceColumn" prefWidth="100.0" text="Price (₱)" />
+                                        <TableColumn fx:id="menuNameColumn" prefWidth="200.0" text="Item" style="-fx-font-size: 14px; -fx-text-fill: #5C4B51;" />
+                                        <TableColumn fx:id="menuPriceColumn" prefWidth="100.0" text="Price (₱)" style="-fx-font-size: 14px; -fx-text-fill: #5C4B51;" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
-                                <Button mnemonicParsing="false" onAction="#handleAddItemToOrder" text="Add Selected Item to Order">
+                                <Button mnemonicParsing="false" onAction="#handleAddItemToOrder" text="Add Selected Item to Order" style="-fx-background-color: #F8C8DC; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
                                     <VBox.margin>
                                         <Insets bottom="5.0" top="10.0" />
                                     </VBox.margin>
                                 </Button>
                             </children>
-                            <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </HBox.margin>
                         </VBox>
+
+                        <!-- Order Section -->
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="350.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="350.0" style="-fx-background-color: #F8E2D7; -fx-padding: 10;">
                             <children>
-                                <Label text="Current Order">
-                                    <font>
-                                        <Font name="System Bold" size="18.0" />
-                                    </font>
+                                <Label text="Current Order" style="-fx-font-family: 'Georgia'; -fx-font-size: 18px; -fx-text-fill: #5C4B51;">
                                     <VBox.margin>
                                         <Insets bottom="5.0" top="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <TableView fx:id="orderTable" prefHeight="200.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+                                <TableView fx:id="orderTable" prefHeight="200.0" prefWidth="300.0" VBox.vgrow="ALWAYS" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10px;">
                                     <columns>
-                                        <TableColumn fx:id="orderNameColumn" prefWidth="200.0" text="Item" />
-                                        <TableColumn fx:id="orderPriceColumn" prefWidth="100.0" text="Price (₱)" />
+                                        <TableColumn fx:id="orderNameColumn" prefWidth="200.0" text="Item" style="-fx-font-size: 14px; -fx-text-fill: #5C4B51;" />
+                                        <TableColumn fx:id="orderPriceColumn" prefWidth="100.0" text="Price (₱)" style="-fx-font-size: 14px; -fx-text-fill: #5C4B51;" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
+
                                 <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="200.0">
                                     <children>
-                                        <Label text="TOTAL:">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="totalLabel" text="₱0.00">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
+                                        <Label text="TOTAL:" style="-fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-text-fill: #5C4B51;" />
+                                        <Label fx:id="totalLabel" text="₱0.00" style="-fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-text-fill: #5C4B51;">
                                             <HBox.margin>
                                                 <Insets left="5.0" right="10.0" />
                                             </HBox.margin>
                                         </Label>
                                     </children>
-                                    <VBox.margin>
-                                        <Insets top="5.0" />
-                                    </VBox.margin>
                                 </HBox>
-                                <Button mnemonicParsing="false" onAction="#handlePlaceOrder" text="Place Order / Checkout">
+
+                                <Button mnemonicParsing="false" onAction="#handlePlaceOrder" text="Place Order / Checkout" style="-fx-background-color: #F8C8DC; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
                                     <VBox.margin>
                                         <Insets bottom="5.0" top="10.0" />
                                     </VBox.margin>
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
                                 </Button>
-                            </children>
-                            <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </HBox.margin>
-                        </VBox>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="280.0">
-                            <children>
-                                <Label text="Recommendations">
+
+                                <!-- Add the Remove Item Button -->
+                                <Button mnemonicParsing="false" onAction="#handleRemoveItemFromOrder" text="Remove Selected Item" style="-fx-background-color: #F8C8DC; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="10.0" />
+                                    </VBox.margin>
+                                </Button>
+
+                                <!-- View Order History Button -->
+                                <Button mnemonicParsing="false" onAction="#handleViewOrderHistory" text="View Order History" style="-fx-background-color: #F8C8DC; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="10.0" />
+                                    </VBox.margin>
+                                </Button>
+
+                                <!-- TextArea for Order History -->
+                                <TextArea fx:id="orderHistoryTextArea" prefHeight="200.0" prefWidth="300.0" editable="false" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10px;">
+                                    <VBox.margin>
+                                        <Insets top="10.0" />
+                                    </VBox.margin>
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font size="14.0" />
                                     </font>
+                                </TextArea>
+                            </children>
+                        </VBox>
+
+                        <!-- Recommendations Section -->
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="280.0" style="-fx-background-color: #F8E2D7; -fx-padding: 10;">
+                            <children>
+                                <Label text="Recommendations" style="-fx-font-family: 'Georgia'; -fx-font-size: 18px; -fx-text-fill: #5C4B51;">
                                     <VBox.margin>
                                         <Insets bottom="5.0" top="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <ListView fx:id="recommendationList" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" onAction="#handleAddRecommendedItem" text="Add Recommended Item">
+                                <ListView fx:id="recommendationList" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10px;" />
+                                <Button mnemonicParsing="false" onAction="#handleAddRecommendedItem" text="Add Recommended Item" style="-fx-background-color: #F8C8DC; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
                                     <VBox.margin>
                                         <Insets bottom="5.0" top="10.0" />
                                     </VBox.margin>
                                 </Button>
                             </children>
-                            <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </HBox.margin>
                         </VBox>
                     </children>
                 </HBox>
             </children>
         </VBox>
+
+        <!-- Receipt Container (Hidden by Default) -->
         <VBox fx:id="receiptContainer" alignment="CENTER" prefHeight="600.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label text="Order Receipt">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-                <TextArea fx:id="receiptArea" editable="false" prefHeight="400.0" prefWidth="400.0">
+                <Label text="Order Receipt" style="-fx-font-family: 'Georgia'; -fx-font-size: 24px; -fx-text-fill: #5C4B51;" />
+                <TextArea fx:id="receiptArea" editable="false" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10px;">
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
-                    <font>
-                        <Font name="Monospaced Regular" size="12.0" />
-                    </font>
                 </TextArea>
-                <Button mnemonicParsing="false" onAction="#handleNewOrder" text="Start New Order">
+                <Button mnemonicParsing="false" onAction="#handleNewOrder" text="Start New Order" style="-fx-background-color: #F8C8DC; -fx-font-family: 'Georgia'; -fx-font-size: 14px; -fx-border-radius: 25px;">
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
@@ -185,5 +175,4 @@
             </children>
         </VBox>
     </children>
-
 </AnchorPane>
