@@ -1,5 +1,6 @@
 package ph.edu.dlsu.lbycpei.caferecommmendationsystem;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -21,16 +22,15 @@ public class CafeSystem {
 
     public CafeSystem() {
         loadSampleMenu();
-        loadSampleInventory();
-        users.put("admin", new User("admin", "admin"));
+        loadUsers();
     }
 
     private void loadSampleMenu() {
-        menu.addItem(new MenuItem("Matcha Latte", 150));
-        menu.addItem(new MenuItem("Espresso", 120));
-        menu.addItem(new MenuItem("Dubai Chocolate Brownie", 95));
-        menu.addItem(new MenuItem("Iced Tea", 100));
-        menu.addItem(new MenuItem("Lemonade", 80));
+        menu.addItem(new MenuItem("Matcha Latte", 150, "Hot Drinks"));
+        menu.addItem(new MenuItem("Espresso", 120, "Hot Drinks"));
+        menu.addItem(new MenuItem("Dubai Chocolate Brownie", 95, "Snacks"));
+        menu.addItem(new MenuItem("Iced Tea", 100, "Cold Drinks"));
+        menu.addItem(new MenuItem("Lemonade", 80, "Cold Drinks"));
     }
 
     private void loadSampleInventory() {
@@ -41,11 +41,31 @@ public class CafeSystem {
         inventory.addItem(new InventoryItem("Lemonade", 20, "Beverage"));
     }
 
+
+    private void loadUsers() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("users.dat"))) {
+            users = (Map<String, User>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("No saved users found or error loading users.");
+
+
+        }
+    }
+
+    private void saveUsers() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("users.dat"))) {
+            oos.writeObject(users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean registerUser(String username, String password) {
         if (users.containsKey(username)) {
             return false;
         }
         users.put(username, new User(username, password));
+        saveUsers();
         return true;
     }
 
@@ -151,5 +171,4 @@ public class CafeSystem {
     public List<MenuItem> getMenuItems() {
         return menu.getItems();
     }
-
 }
