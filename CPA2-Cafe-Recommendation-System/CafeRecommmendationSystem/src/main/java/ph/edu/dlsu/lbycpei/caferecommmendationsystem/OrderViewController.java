@@ -33,7 +33,7 @@ public class OrderViewController {
     public void refreshOrderTable() {
         if (cafeSystem != null) {
             orderTable.getItems().setAll(
-                cafeSystem.getCurrentOrder().getItems()
+                    cafeSystem.getCurrentOrder().getItems()
             );
         }
     }
@@ -59,5 +59,4 @@ public class OrderViewController {
         refreshTotal();
     }
 }
-
 
